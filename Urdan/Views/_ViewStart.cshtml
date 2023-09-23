@@ -1,0 +1,14 @@
+﻿@{
+  var currentConversationName = Context.Request.RouteValues["controller"].ToString();
+  if (currentConversationName == "Admin")
+  {
+    Layout = "_AdminLayout";
+
+  } else if (currentConversationName == "Account") {
+    Layout = "_AccountLayout";
+  }
+  else
+  {
+    Layout = "_Layout";
+  }
+}

@@ -1,0 +1,278 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Remove="bundleconfig.json" />
+		<Content Remove="compilerconfig.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="BCrypt.Net.BCrypt" Alias="BC" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="bundleconfig.json" />
+		<None Include="compilerconfig.json" />
+		<None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+		<None Include="wwwroot\lib\assets\fonts\Pe-icon-7-stroke.svg" />
+		<None Include="wwwroot\lib\assets\libs\js\bootstrap-select.min.js" />
+		<None Include="wwwroot\lib\assets\libs\js\bootstrap.min.js" />
+		<None Include="wwwroot\lib\assets\libs\js\jquery-1.11.1.min.js" />
+		<None Include="wwwroot\lib\assets\libs\js\jquery-1.11.1.min.map" />
+		<None Include="wwwroot\lib\assets\libs\js\prism.js" />
+		<None Include="wwwroot\lib\assets\refs\main.js" />
+		<None Include="wwwroot\lib\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.svg" />
+		<None Include="wwwroot\lib\swiper\package\LICENSE" />
+		<None Include="wwwroot\lib\swiper\package\modules\a11y.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\a11y.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\a11y.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\a11y.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\a11y.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\autoplay.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\autoplay.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\autoplay.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\autoplay.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\autoplay.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\controller.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\controller.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\controller.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\controller.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\controller.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-cards.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-cards.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-cards.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-cards.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-cards.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-coverflow.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-coverflow.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-coverflow.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-coverflow.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-coverflow.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-creative.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-creative.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-creative.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-creative.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-creative.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-cube.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-cube.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-cube.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-cube.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-cube.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-fade.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-fade.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-fade.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-fade.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-fade.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-flip.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-flip.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-flip.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-flip.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\effect-flip.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\free-mode.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\free-mode.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\free-mode.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\free-mode.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\free-mode.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\grid.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\grid.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\grid.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\grid.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\grid.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\hash-navigation.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\hash-navigation.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\hash-navigation.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\hash-navigation.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\hash-navigation.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\history.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\history.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\history.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\history.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\history.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\index.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\index.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\index.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\keyboard.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\keyboard.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\keyboard.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\keyboard.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\keyboard.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\manipulation.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\manipulation.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\manipulation.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\manipulation.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\manipulation.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\mousewheel.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\mousewheel.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\mousewheel.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\mousewheel.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\mousewheel.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\navigation.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\navigation.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\navigation.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\navigation.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\navigation.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\pagination.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\pagination.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\pagination.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\pagination.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\pagination.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\parallax.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\parallax.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\parallax.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\parallax.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\parallax.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\scrollbar.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\scrollbar.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\scrollbar.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\scrollbar.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\scrollbar.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\thumbs.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\thumbs.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\thumbs.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\thumbs.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\thumbs.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\virtual.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\virtual.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\virtual.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\virtual.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\virtual.scss" />
+		<None Include="wwwroot\lib\swiper\package\modules\zoom.less" />
+		<None Include="wwwroot\lib\swiper\package\modules\zoom.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\zoom.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\modules\zoom.mjs" />
+		<None Include="wwwroot\lib\swiper\package\modules\zoom.scss" />
+		<None Include="wwwroot\lib\swiper\package\README.md" />
+		<None Include="wwwroot\lib\swiper\package\shared\classes-to-selector.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\classes-to-selector.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\classes-to-selector.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\create-element-if-not-defined.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\create-element-if-not-defined.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\create-element-if-not-defined.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\create-shadow.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\create-shadow.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\create-shadow.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\effect-init.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\effect-init.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\effect-init.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\effect-target.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\effect-target.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\effect-target.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\effect-virtual-transition-end.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\effect-virtual-transition-end.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\effect-virtual-transition-end.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\get-element-params.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\get-element-params.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\get-element-params.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\ssr-window.esm.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\ssr-window.esm.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\ssr-window.esm.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\swiper-core.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\swiper-core.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\swiper-core.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\update-on-virtual-data.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\update-on-virtual-data.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\update-on-virtual-data.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\update-swiper.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\update-swiper.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\update-swiper.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\utils.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\shared\utils.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\shared\utils.mjs" />
+		<None Include="wwwroot\lib\swiper\package\swiper-bundle.js" />
+		<None Include="wwwroot\lib\swiper\package\swiper-bundle.min.js" />
+		<None Include="wwwroot\lib\swiper\package\swiper-bundle.min.js.map" />
+		<None Include="wwwroot\lib\swiper\package\swiper-bundle.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\swiper-bundle.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\swiper-bundle.mjs" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element-bundle.js" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element-bundle.min.js" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element-bundle.min.js.map" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element-bundle.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element-bundle.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element-bundle.mjs" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element.js" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element.min.js" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element.min.js.map" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\swiper-element.mjs" />
+		<None Include="wwwroot\lib\swiper\package\swiper-react.mjs" />
+		<None Include="wwwroot\lib\swiper\package\swiper-vars.less" />
+		<None Include="wwwroot\lib\swiper\package\swiper-vars.scss" />
+		<None Include="wwwroot\lib\swiper\package\swiper-vue.mjs" />
+		<None Include="wwwroot\lib\swiper\package\swiper.js" />
+		<None Include="wwwroot\lib\swiper\package\swiper.less" />
+		<None Include="wwwroot\lib\swiper\package\swiper.min.js" />
+		<None Include="wwwroot\lib\swiper\package\swiper.min.js.map" />
+		<None Include="wwwroot\lib\swiper\package\swiper.min.mjs" />
+		<None Include="wwwroot\lib\swiper\package\swiper.min.mjs.map" />
+		<None Include="wwwroot\lib\swiper\package\swiper.mjs" />
+		<None Include="wwwroot\lib\swiper\package\swiper.scss" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+		<PackageReference Include="BuildBundlerMinifier2022" Version="2.9.9" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="X.PagedList" Version="8.4.7" />
+		<PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\swiper-element.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\swiper-react.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\swiper-vue.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\swiper.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\index.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\a11y.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\autoplay.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\controller.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\effect-cards.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\effect-coverflow.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\effect-creative.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\effect-cube.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\effect-fade.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\effect-flip.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\free-mode.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\grid.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\hash-navigation.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\history.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\index.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\keyboard.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\manipulation.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\mousewheel.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\navigation.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\pagination.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\parallax.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\public-api.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\scrollbar.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\thumbs.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\virtual.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\modules\zoom.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\shared.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\swiper-class.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\swiper-events.d.ts" />
+		<TypeScriptCompile Include="wwwroot\lib\swiper\package\types\swiper-options.d.ts" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\upload\" />
+	</ItemGroup>
+
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties compilerconfig_1json__JsonSchema="https://json.schemastore.org/component.json" />
+		</VisualStudio>
+	</ProjectExtensions>
+
+</Project>

@@ -1,0 +1,76 @@
+﻿@{
+  var currentAction = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <style>
+    .truncate-2 {
+      -webkit-line-clamp: 2;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
+  <title>Urdan - @ViewBag.Title</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" asp-action="Index">
+        Urdan Admin
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" asp-action="Users">Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-action="Products">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-action="Brands">Brands</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-action="Images">Images</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-action="Colors">Colors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-action="Categories">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-action="Addresses">Addresses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-action="Orders">Orders</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section style="padding-top: 56px;">
+    @RenderBody()
+  </section>
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="~/js/admin/index.js"></script>
+  <script type="text/javascript">
+    const currentAction = "@currentAction";
+    $(".nav-link").each(function () {
+      const itemText = $(this).text().trim();
+      if (itemText === currentAction) {
+        $(this).addClass("active");
+      }
+    })
+  </script>
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
