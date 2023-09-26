@@ -1,0 +1,29 @@
+﻿.cart-table thead {
+    background: rgb(243 243 243);
+}
+
+.cart-table thead th {
+    padding: 14px;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: left;
+}
+
+.cart-table tbody td {
+    padding: 14px;
+    font-size: 16px;
+}
+
+.cart-table tbody td i {
+    font-size: 18px;
+} 
+
+
+.cart-update {
+    padding-top: 30px;
+    padding-bottom: 95px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

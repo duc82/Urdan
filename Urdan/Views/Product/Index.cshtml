@@ -1,9 +1,124 @@
-﻿
+﻿@model Product;
 
 
 @{
+	ViewBag.Title = Model.Name;
+	ViewBag.CategoryName = Model.Category?.Name;
 }
 
+<partial name="_Breadcrumb" />
+<div class="pt-100 pb-100 product-details">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="product-img" data-aos="fade-up" data-aos-delay="200">
+					<div class="easyzoom easyzoom--overlay">
+						<a href="@Model.Images.First().Url">
+							<img src="@Model.Images.First().Url" alt="@Model.Name" class="product-img-active w-100" />
+						</a>
+					</div>
+					<div class="product-img-list swiper">
+						<div class="swiper-wrapper">
+							@foreach (var image in Model.Images)
+							{
+								<div class="swiper-slide">
+									<button type="button">
+										<img src="@image.Url" alt="@Model.Name" class="w-100" />
+									</button>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<div class="product-content" data-aos="fade-up" data-aos-delay="400">
+					<h2>@Model.Name</h2>
+					@* Product price *@
+					@if (Model.Discount != 0)
+					{
+						<div class="product-price">
+							<span class="old-price">$@Model.Price</span>
+							<span class="new-price">$@Model.PriceTotal</span>
+						</div>
+					}
+					else
+					{
+						<span class="product-price">
+							$@Model.PriceTotal
+						</span>
+					}
 
-<h1>Product detail</h1>
-<p>@ViewBag.ProductName</p>
+					@if (Model.Colors != null)
+					{
+						var index = 0;
+						<div class="product-color">
+							<span>Color:</span>
+							<ul>
+								@foreach (var color in Model.Colors)
+								{
+									var activeClass = index == 0 ? "active" : "";
+									index++;
+									<li>
+										<button type="button" class="@activeClass" style="background: @color?.Name.ToLower()"></button>
+									</li>
+								}
+							</ul>
+						</div>
+					}
+
+
+					<div class="product-action">
+						<div class="product-quantity">
+							<button type="button">
+								-
+							</button>
+							<input type="text" value="1" maxlength="3" />
+							<button type="button">
+								+
+							</button>
+						</div>
+						<button type="button" class="product-cart btn-hover" onclick="addToCart(@Model.Id)">Add to cart</button>
+					</div>
+
+					<div class="product-meta">
+						<ul>
+							<li>
+								<span>Size:</span>
+								@Model.Size
+							</li>
+							<li>
+								<span>Height:</span>
+								@(Model.Height)kg
+							</li>
+							<li>
+								<span>Material:</span>
+								@Model.Material
+							</li>
+							<li>
+								<span>Brand:</span>
+								@Model.Brand?.Name
+							</li>
+							<li>
+								<span>Category:</span>
+								@Model.Category?.Name
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="description-review pb-70">
+	<div class="container">
+		<div data-aos="fade-up" data-aos-delay="200">
+			<button type="button">
+				Description
+			</button>
+			<button type="button">
+				Reviews
+			</button>
+		</div>
+	</div>
+</div>

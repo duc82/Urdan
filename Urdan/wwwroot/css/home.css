@@ -303,7 +303,7 @@
     transition: all .4s ease;
 }
 
-.product-slide .product-img .product-action-1 button:hover,.product-slide .product-img .product-action-2 button:hover {
+.product-slide .product-img .product-action-1 button:hover, .product-slide .product-img .product-action-2 .product-action-btn-2:hover {
     background: var(--orange);
     color: white;
 }
@@ -339,7 +339,7 @@
 }
 
 
-.product-slide .product-img .product-action-2 button {
+.product-slide .product-img .product-action-2 .product-action-btn-2 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -353,7 +353,7 @@
     transition: all .4s ease;
 }
 
-.product-slide .product-img .product-action-2 button i {
+.product-slide .product-img .product-action-2 .product-action-btn-2 i {
     font-size: 22px;
     margin-right: 5px;
 }

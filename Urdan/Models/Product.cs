@@ -11,7 +11,6 @@ namespace Urdan.Models
 		public int Id { get; set; }
 		public int CategoryId { get; set; }
 		public int BrandId { get; set; }
-
 		public string Name { get; set; }
 		public string Size { get; set; }
 		public int Height { get; set; }
@@ -43,6 +42,26 @@ namespace Urdan.Models
 				else
 				{
 					return Price;
+				}
+			}
+		}
+
+		public decimal AvgRating
+		{
+			get
+			{
+				if (this.Ratings != null && this.Ratings.Count > 0)
+				{
+					int sumStar = 0;
+					foreach (var s in this.Ratings)
+					{
+						sumStar += s.Star;
+					}
+					return sumStar / this.Ratings.Count;
+				}
+				else
+				{
+					return 0;
 				}
 			}
 		}

@@ -19,7 +19,7 @@ namespace Urdan.Controllers
 			_productService = productService;
 		}
 
-		public async Task<IActionResult> Index(string search, string price, string sort, int page = 1)
+		public async Task<IActionResult> Index(string? search, string? price, string? brand, string sort, int page = 1)
 		{
 			var products = _productService.AsEnumerable();
 			if (!String.IsNullOrEmpty(search))
@@ -35,6 +35,11 @@ namespace Urdan.Controllers
 				int max = Int32.Parse(prices[prices.Length - 1].Substring(1));
 				products = products.Where(p => p.PriceTotal >= min && p.PriceTotal <= max);
 				ViewBag.PriceFilter = price;
+			}
+
+			if (!String.IsNullOrEmpty(brand))
+			{
+				products = products.Where(p => p.Brand.Name == brand);
 			}
 
 

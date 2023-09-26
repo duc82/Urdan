@@ -18,6 +18,19 @@
 	<ItemGroup>
 		<None Include="bundleconfig.json" />
 		<None Include="compilerconfig.json" />
+		<None Include="wwwroot\lib\easyzoom\.editorconfig" />
+		<None Include="wwwroot\lib\easyzoom\.gitignore" />
+		<None Include="wwwroot\lib\easyzoom\.jshintrc" />
+		<None Include="wwwroot\lib\easyzoom\.npmignore" />
+		<None Include="wwwroot\lib\easyzoom\dist\easyzoom.js" />
+		<None Include="wwwroot\lib\easyzoom\Gruntfile.js" />
+		<None Include="wwwroot\lib\easyzoom\LICENSE" />
+		<None Include="wwwroot\lib\easyzoom\README.md" />
+		<None Include="wwwroot\lib\easyzoom\src\easyzoom.js" />
+		<None Include="wwwroot\lib\easyzoom\test\lib\jquery-3.6.0.min.js" />
+		<None Include="wwwroot\lib\easyzoom\test\lib\qunit-2.19.1.js" />
+		<None Include="wwwroot\lib\easyzoom\test\lib\sinon-1.17.7.js" />
+		<None Include="wwwroot\lib\easyzoom\test\spec\easyzoom.js" />
 		<None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
 		<None Include="wwwroot\lib\assets\fonts\Pe-icon-7-stroke.svg" />
 		<None Include="wwwroot\lib\assets\libs\js\bootstrap-select.min.js" />

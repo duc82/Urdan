@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Urdan.Data;
@@ -8,6 +9,8 @@ using X.PagedList;
 
 namespace Urdan.Controllers
 {
+
+	[Authorize(Roles = "Administrator")]
 	public class AdminController : Controller
 	{
 		private readonly UrdanContext _context;
@@ -26,19 +29,6 @@ namespace Urdan.Controllers
 		// GET: /Admin
 		public IActionResult Index()
 		{
-			int? Id = HttpContext.Session.GetInt32("Id");
-			if (Id == null)
-			{
-				return RedirectToAction("Index", "Home");
-			}
-
-
-			bool isAdmin = _userService.IsAdmin(Id.Value);
-
-			if (isAdmin)
-			{
-				return RedirectToAction("Login", "Account");
-			}
 
 			return View();
 		}

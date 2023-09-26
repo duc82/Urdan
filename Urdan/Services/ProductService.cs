@@ -12,6 +12,7 @@ namespace Urdan.Services
 		IEnumerable<Product> AsEnumerable();
 
 		Task<Product?> FirstOrDefaultAsync(Expression<Func<Product, bool>> predicate);
+		Task<Product?> FindAsync(object keyValues);
 	}
 
 	public class ProductService : IProductService
@@ -37,13 +38,19 @@ namespace Urdan.Services
 
 		public async Task<Product?> FirstOrDefaultAsync(Expression<Func<Product, bool>> predicate)
 		{
-			var products = await _context.Products.Include(p => p.Category).Include(p => p.Brand).Include(p => p.Images).Include(p => p.Colors).AsNoTracking().FirstOrDefaultAsync(predicate);
+			var products = await _context.Products.Include(p => p.Category).Include(p => p.Brand).Include(p => p.Images).Include(p => p.Ratings).Include(p => p.Colors).AsNoTracking().FirstOrDefaultAsync(predicate);
 			return products;
 		}
 
 		public IEnumerable<Product> AsEnumerable()
 		{
 			return _context.Products.Include(p => p.Category).Include(p => p.Brand).Include(p => p.Images).Include(p => p.Colors).AsNoTracking().AsEnumerable();
+		}
+
+		public async Task<Product?> FindAsync(object keyValues)
+		{
+			var product = await _context.Products.FindAsync(keyValues);
+			return product;
 		}
 	}
 }

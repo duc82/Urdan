@@ -173,10 +173,10 @@
                   </button>
                 </div>
                 <div class="product-action-2">
-                  <button type="button" title="Add To Cart" class="product-action-btn-2">
+                  <a asp-action="AddToCart" asp-route-productId="@product.Id" asp-controller="Cart" title="Add To Cart" class="product-action-btn-2">
                     <i class="pe-7s-cart"></i>
                     Add to cart
-                  </button>
+                  </a>
                 </div>
               </div>
               <div class="product-content">

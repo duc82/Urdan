@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using Urdan.Data;
 using Urdan.Models;
 using Urdan.Services;
@@ -34,7 +37,6 @@ namespace Urdan.Controllers
 			return true;
 		}
 
-
 		// GET: /Account
 		public async Task<IActionResult> Index()
 		{
@@ -43,7 +45,6 @@ namespace Urdan.Controllers
 			{
 				return RedirectToAction(nameof(Login));
 			}
-
 			var Id = HttpContext.Session.GetInt32("Id");
 			var user = await _userService.FirstOrDefaultAsync(u => u.Id == Id);
 
@@ -119,22 +120,38 @@ namespace Urdan.Controllers
 				if (user != null && BC.Verify(Password, user.Password))
 				{
 					HttpContext.Session.SetInt32("Id", user.Id);
+					var claims = new List<Claim>
+					{
+						new Claim(ClaimTypes.Name, user.Username),
+						new Claim("FullName",user.Username),
+						new Claim(ClaimTypes.Role,user.Role == Role.Admin ? "Administrator" : "User")
+					};
+					var claimsIdentity = new ClaimsIdentity(
+								claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+
+					await HttpContext.SignInAsync(
+							 CookieAuthenticationDefaults.AuthenticationScheme,
+							 new ClaimsPrincipal(claimsIdentity));
 					return RedirectToAction(nameof(Index));
 				}
+				else
+				{
+					ModelState.AddModelError("CustomError", "Invalid username or password");
 
-				ModelState.AddModelError("CustomError", "Invalid username or password");
+				}
+
 
 			}
 			return View(nameof(Login));
 		}
 
 
-		// POST: /Account/Logout
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public IActionResult Logout()
+		// GET: /Account/Logout
+		public async Task<IActionResult> Logout()
 		{
 			HttpContext.Session.Clear();
+			await HttpContext.SignOutAsync();
 			return RedirectToAction(nameof(Login));
 		}
 	}
