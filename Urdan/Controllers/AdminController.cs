@@ -10,7 +10,7 @@ using X.PagedList;
 namespace Urdan.Controllers
 {
 
-	[Authorize(Roles = "Administrator")]
+	[Authorize(Roles = "Admin")]
 	public class AdminController : Controller
 	{
 		private readonly UrdanContext _context;
@@ -211,8 +211,8 @@ namespace Urdan.Controllers
 			return View(nameof(CreateAddress));
 		}
 
-		[HttpPost]
-		[ValidateAntiForgeryToken]
+
+		// GET: /Admin/HandleDeleteAddress
 		public async Task<IActionResult> HandleDeleteAddress(int id)
 		{
 			var address = await _context.Addresses.FindAsync(id);
@@ -228,7 +228,7 @@ namespace Urdan.Controllers
 		// Products
 
 		// GET: /Admin/Products
-		public async Task<IActionResult> Products(string search, int page = 1)
+		public async Task<IActionResult> Products(string? search, string? sort, int page = 1)
 		{
 			IEnumerable<Product> products = _productService.AsEnumerable();
 
@@ -238,6 +238,39 @@ namespace Urdan.Controllers
 				ViewBag.Search = search;
 			}
 
+			switch (sort)
+			{
+				case "id_desc":
+					products = products.OrderByDescending(p => p.Id);
+					break;
+				case "name_desc":
+					products = products.OrderByDescending(p => p.Name);
+					break;
+				case "name_asc":
+					products = products.OrderBy(p => p.Name);
+					break;
+				case "price_total_desc":
+					products = products.OrderByDescending(p => p.PriceTotal);
+					break;
+				case "price_total_asc":
+					products = products.OrderBy(p => p.PriceTotal);
+					break;
+				case "created_desc":
+					products = products.OrderByDescending(p => p.CreatedAt);
+					break;
+				default:
+					break;
+			}
+
+			ViewBag.IdSort = String.IsNullOrEmpty(sort) ? "id_desc" : "";
+			ViewBag.NameSort = sort == "name_desc" ? "name_asc" : "name_desc";
+			ViewBag.PriceTotalSort = sort == "price_total_desc" ? "price_total_asc" : "price_total_desc";
+			ViewBag.CreatedAtSort = String.IsNullOrEmpty(sort) ? "created_desc" : "";
+
+			if (!String.IsNullOrEmpty(sort))
+			{
+				ViewBag.CurrentSort = sort;
+			}
 			products = await products.ToPagedListAsync(page, PageSize);
 
 			return View(products);
@@ -291,7 +324,7 @@ namespace Urdan.Controllers
 		// GET: /Admin/Brands
 		public async Task<IActionResult> Brands()
 		{
-			List<Brand> brands = await _context.Brands.ToListAsync();
+			List<Brand> brands = await _context.Brands.Include(b => b.Products).ToListAsync();
 			return View(brands);
 		}
 
@@ -316,6 +349,36 @@ namespace Urdan.Controllers
 			return View(nameof(Brands));
 		}
 
+
+		public async Task<IActionResult> HandleDeleteBrand(int id)
+		{
+			var brand = await _context.Brands.FirstOrDefaultAsync(b => b.Id == id);
+
+			if (brand != null)
+			{
+				_context.Remove(brand);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(Brands));
+			}
+
+			return View(nameof(Brands));
+		}
+
+		// GET: /Admin/Orders
+		public async Task<IActionResult> Orders(string? search, int page = 1)
+		{
+			IEnumerable<Order> orders = _context.Orders.Include(o => o.User).Include(o => o.ShippingAddress).AsNoTracking().AsEnumerable();
+			if (!String.IsNullOrEmpty(search))
+			{
+				orders.Where(o => o.Id.ToString() == search);
+				ViewBag.Search = search;
+			}
+
+			orders = await orders.ToPagedListAsync(page, PageSize);
+
+			return View(orders);
+		}
+
 		// GET: /Admin/Images
 		public async Task<IActionResult> Images()
 		{
@@ -337,23 +400,25 @@ namespace Urdan.Controllers
 		// POST: /Admin/HandleCreateImage
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> HandleCreateImage([Bind("ProductId")] Image image, IFormFile upload)
+		public async Task<IActionResult> HandleCreateImage(Image image, List<IFormFile> uploads)
 		{
-			if (upload != null && upload.Length > 0)
+			if (uploads != null && uploads.Count > 0)
 			{
-				var fileName = upload.FileName;
-				var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/upload", fileName);
-				using (var fileSrteam = new FileStream(filePath, FileMode.Create))
+				foreach (var upload in uploads)
 				{
-					await upload.CopyToAsync(fileSrteam);
+
+					var fileName = upload.FileName;
+					var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/upload", fileName);
+					using (var fileSrteam = new FileStream(filePath, FileMode.Create))
+					{
+						await upload.CopyToAsync(fileSrteam);
+					}
+					_context.Add(new Image { Url = Path.Combine("/upload", fileName), ProductId = image.ProductId });
 				}
-				image.Url = Path.Combine("/upload", fileName);
-				_context.Add(image);
 				await _context.SaveChangesAsync();
 				return RedirectToAction(nameof(Images));
 			}
-
-			return View(nameof(Images));
+			return View(nameof(CreateImage));
 		}
 
 		// GET: /Admin/EditProduct/[id]

@@ -4,18 +4,32 @@
 @{
 	ViewBag.Title = Model.Name;
 	ViewBag.CategoryName = Model.Category?.Name;
+	var userId = User.Claims.FirstOrDefault(claim => claim.Type == "Id")?.Value;
+	var productName = ViewContext.RouteData.Values["name"]?.ToString();
 }
 
 <partial name="_Breadcrumb" />
 <div class="pt-100 pb-100 product-details">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-5">
+			<div class="col-lg-6">
 				<div class="product-img" data-aos="fade-up" data-aos-delay="200">
-					<div class="easyzoom easyzoom--overlay">
-						<a href="@Model.Images.First().Url">
-							<img src="@Model.Images.First().Url" alt="@Model.Name" class="product-img-active w-100" />
-						</a>
+					<div class="product-img-active swiper">
+						<div class="swiper-wrapper">
+							@foreach (var image in Model.Images)
+							{
+								<div class="swiper-slide">
+									<div class="easyzoom easyzoom--overlay">
+										<a href="@image.Url">
+											<img src="@image.Url" alt="@Model.Name" class="w-100" />
+										</a>
+									</div>
+									<a class="img-popup" href="@image.Url">
+										<i class="pe-7s-search"></i>
+									</a>
+								</div>
+							}
+						</div>
 					</div>
 					<div class="product-img-list swiper">
 						<div class="swiper-wrapper">
@@ -31,8 +45,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-5">
-				<div class="product-content" data-aos="fade-up" data-aos-delay="400">
+			<div class="col-lg-6">
+				<div class="product-content bg-content" data-aos="fade-up" data-aos-delay="400">
 					<h2>@Model.Name</h2>
 					@* Product price *@
 					@if (Model.Discount != 0)
@@ -49,18 +63,30 @@
 						</span>
 					}
 
+					@if (Model.Ratings?.Count > 0)
+					{
+
+						<div class="product-review">
+							<div class="product-rating">
+								@for (int i = 0; i < (int)Model.AvgRating; i++)
+								{
+										<i class="ti-star"></i>
+								}
+							</div>
+							<span>(@Model.Ratings.Count Customer Review)</span>
+						</div>
+					}
+
 					@if (Model.Colors != null)
 					{
-						var index = 0;
 						<div class="product-color">
 							<span>Color:</span>
 							<ul>
-								@foreach (var color in Model.Colors)
+								@foreach (var (color, i) in Model.Colors.Select((v, i) => (v, i)))
 								{
-									var activeClass = index == 0 ? "active" : "";
-									index++;
+									var activeClass = i == 0 ? "active" : "";
 									<li>
-										<button type="button" class="@activeClass" style="background: @color?.Name.ToLower()"></button>
+										<button type="button" class="@activeClass" style="background: @color.Name.ToLower()" id="@color.Name"></button>
 									</li>
 								}
 							</ul>
@@ -110,15 +136,87 @@
 		</div>
 	</div>
 </div>
-<div class="description-review pb-70">
-	<div class="container">
-		<div data-aos="fade-up" data-aos-delay="200">
-			<button type="button">
-				Description
-			</button>
-			<button type="button">
-				Reviews
-			</button>
+<div class="container pb-70">
+	<div class="description-review" data-aos="fade-up" data-aos-delay="200">
+		<button type="button" class="active">
+			Description
+		</button>
+		<button type="button">
+			Reviews
+		</button>
+	</div>
+	<div class="description-review-content">
+		<p class="description active" data-aos="fade-up" data-aos-delay="200">@Model.Description</p>
+		<div class="review">
+			@if (String.IsNullOrEmpty(userId))
+			{
+				<div>
+					You need to be logged in to review
+					<a asp-action="Login" asp-controller="Account" class="btn-link">Login</a>
+				</div>
+			}
+			else
+			{
+				<h3 class="review-title">@Model.Ratings.Count review for @Model.Name</h3>
+				<ul class="reviews">
+					@foreach (var rating in Model.Ratings)
+					{
+						<li>
+							<div class="review-stars">
+								@for (int i = 0; i < rating.Star; i++)
+								{
+									<i class="ti-star"></i>
+								}
+							</div>
+							<p class="review-name">
+								@rating.User?.Username - @Html.DisplayFor(model => rating.CreatedAt)
+							</p>
+							<p class="review-content">
+								@rating.Content
+							</p>
+						</li>
+					}
+
+				</ul>
+				<div class="review-form">
+					<h3>Add a review</h3>
+					<p>Your email address will not be published. Required fields are marked *</p>
+
+					<div class="your-rating-wrap">
+						<span>Your rating</span>
+						<div class="your-rating">
+							<i class="ti-star"></i>
+							<i class="ti-star"></i>
+							<i class="ti-star"></i>
+							<i class="ti-star"></i>
+							<i class="ti-star"></i>
+						</div>
+					</div>
+					<form asp-action="CreateRating" method="post">
+						<input name="ProductId" value="@Model.Id" hidden />
+						<input name="UserId" value="@userId" hidden />
+						<input name="Star" id="Star" hidden />
+						<input name="name" value="@productName" hidden />
+						<span asp-validation-for="Ratings.FirstOrDefault().Star" class="form-text text-danger"></span>
+						<div class="mb-4">
+							<label class="form-label">
+								Your review <abbr title="required">*</abbr>
+							</label>
+							<textarea class="form-control" name="Content" aria-label="With textarea"></textarea>
+							<span asp-validation-for="Ratings.FirstOrDefault().Content" class="form-text text-danger"></span>
+						</div>
+						
+						<button type="submit">Submit</button>
+					</form>
+				</div>
+			}
+
 		</div>
 	</div>
 </div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

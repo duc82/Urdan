@@ -97,6 +97,26 @@ function handleDeleteColor(id) {
 }
 
 
+// Delete brand
+function handleDeleteBrand(id) {
+    const isConfirm = confirm("Delete this brand?");
+    if (isConfirm) {
+        $.ajax({
+            type: "GET",
+            url: `/Admin/HandleDeleteBrand/${id}`,
+            contentType: "application/json",
+            success: function () {
+                $(`#${id}`).closest("tr").remove();
+            },
+            error: function (error) {
+                console.log(error);
+                alert("Error while deleting data: " + error.responseText)
+            }
+        })
+    }
+}
+
+
 
 
 

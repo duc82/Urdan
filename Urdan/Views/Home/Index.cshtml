@@ -18,7 +18,7 @@
 								<h1 class="animate__animated">
 									Summer <br /> Collection
 								</h1>
-								<a href="/shop" class="btn-hover animate__animated">
+								<a href="/Products" class="btn-hover animate__animated">
 									<span>
 										Shop Now
 									</span>
@@ -55,7 +55,7 @@
 								<h1 class="animate__animated">
 									Summer <br /> Collection
 								</h1>
-								<a href="/shop" class="btn-hover animate__animated">
+								<a href="/Products" class="btn-hover animate__animated">
 									<span>
 										Shop Now
 									</span>
@@ -89,7 +89,7 @@
 		<div class="row">
 			<div class="col-lg-4 col-md-6 col-12">
 				<div class="banner mb-30" data-aos="fade-up" data-aos-delay="200">
-					<a href="/product-detail" class="d-block">
+					<a href="/Products" class="d-block">
 						<img src="~/images/banner-1.webp" class="w-100" />
 					</a>
 					<div class="banner-content">
@@ -99,7 +99,7 @@
 						<h3>
 							Office Chair
 						</h3>
-						<a href="/product-detail">
+						<a href="/Products">
 							Shop Now
 						</a>
 					</div>
@@ -107,7 +107,7 @@
 			</div>
 			<div class="col-lg-4 col-md-6 col-12">
 				<div class="banner mb-30" data-aos="fade-up" data-aos-delay="400">
-					<a href="/product-detail" class="d-block">
+					<a href="/Products" class="d-block">
 						<img src="~/images/banner-2.webp" class="w-100" />
 					</a>
 					<div class="banner-content">
@@ -117,7 +117,7 @@
 						<h3>
 							Hanging Chair
 						</h3>
-						<a href="/product-detail">
+						<a href="/Products">
 							Shop Now
 						</a>
 					</div>
@@ -125,7 +125,7 @@
 			</div>
 			<div class="col-lg-4 col-md-6 col-12">
 				<div class="banner mb-30" data-aos="fade-up" data-aos-delay="600">
-					<a href="/product-detail" class="d-block">
+					<a href ="/Products" class="d-block">
 						<img src="~/images/banner-3.webp" class="w-100" />
 					</a>
 					<div class="banner-content">
@@ -135,7 +135,7 @@
 						<h3>
 							Folding Chair
 						</h3>
-						<a href="/product-detail">
+						<a href="/Products">
 							Shop Now
 						</a>
 					</div>
@@ -159,7 +159,7 @@
             <div data-aos="fade-up" data-aos-delay="200">
               <div class="product-img">
                 <a asp-action="Index" asp-controller="Product" asp-route-name="@product.Name">
-                  <img src="@product.Images?.First().Url" alt="Product Image" />
+                  <img src="@product.Images?.FirstOrDefault()?.Url" alt="Product Image" />
                 </a>
                 <span class="product-discount">
                   -@product.Discount%
@@ -218,7 +218,7 @@
 		<div class="row">
 			<div class="col-lg-7 col-md-7">
 				<div class="banner mb-30" data-aos="fade-up" data-aos-delay="200">
-					<a href="/product">
+					<a href="/Products">
 						<img src="~/images/banner-4.webp" alt="Banner" />
 					</a>
 					<div class="banner-content-2">
@@ -227,7 +227,7 @@
 							New Furniture
 						</h3>
 						<p>Lorem ipsum dolor sit amet consecte adipisicing elit sed do</p>
-						<a href="/product" class="btn-hover">
+						<a href="/Products" class="btn-hover">
 							Shop Now
 						</a>
 					</div>
@@ -235,7 +235,7 @@
 			</div>
 			<div class="col-lg-5 col-md-5">
 				<div class="banner mb-30" data-aos="fade-up" data-aos-delay="400">
-					<a href="/product">
+					<a href="/Products">
 						<img src="~/images/banner-5.webp" alt="Banner" />
 					</a>
 					<div class="banner-content-3">
@@ -314,15 +314,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-</section>
-<section class="product-section pb-70">
-	<div class="container">
-		<div class="product-title">
-			<h2 data-aos="fade-up" data-aos-delay="200">
-				Hot Products
-			</h2>	
 		</div>
 	</div>
 </section>

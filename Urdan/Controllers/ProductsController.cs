@@ -19,13 +19,20 @@ namespace Urdan.Controllers
 			_productService = productService;
 		}
 
-		public async Task<IActionResult> Index(string? search, string? price, string? brand, string sort, int page = 1)
+		public async Task<IActionResult> Index(string? category, string? search, string? price, string? brand, string? sort, int page = 1)
 		{
 			var products = _productService.AsEnumerable();
-			if (!String.IsNullOrEmpty(search))
+
+			if (!String.IsNullOrEmpty(category))
 			{
-				products = products.Where(p => p.Name.ToLower().Contains(search.ToLower()));
-				ViewBag.ProductSearch = search;
+				products = products.Where(p => p.Category?.Name == category);
+				ViewBag.CurrentCategory = category;
+			}
+
+			if (!String.IsNullOrEmpty(brand))
+			{
+				products = products.Where(p => p.Brand?.Name == brand);
+				ViewBag.CurrentBrand = brand;
 			}
 
 			if (!String.IsNullOrEmpty(price))
@@ -37,9 +44,12 @@ namespace Urdan.Controllers
 				ViewBag.PriceFilter = price;
 			}
 
-			if (!String.IsNullOrEmpty(brand))
+
+
+			if (!String.IsNullOrEmpty(search))
 			{
-				products = products.Where(p => p.Brand.Name == brand);
+				products = products.Where(p => p.Name.ToLower().Contains(search.ToLower()));
+				ViewBag.ProductSearch = search;
 			}
 
 
@@ -87,15 +97,6 @@ namespace Urdan.Controllers
 			ViewBag.Brands = await _context.Brands.Include(b => b.Products).AsNoTracking().ToListAsync();
 			ViewBag.Colors = await _context.Colors.Select(c => c.Name).Distinct().ToListAsync();
 
-			return View(products);
-		}
-
-		[HttpGet("Products/{categoryName}")]
-		public async Task<IActionResult> ProductCategory(string categoryName, int page = 1)
-		{
-			var products = _productService.AsEnumerable().Where(p => p.Category?.Name == categoryName);
-			products = await products.ToPagedListAsync(page, _pageSize);
-			ViewBag.Title = categoryName;
 			return View(products);
 		}
 	}

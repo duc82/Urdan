@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http;
-@using Urdan.Extensions;
+﻿@using Urdan.Extensions;
 @{
 	Cart? cart = Context.Session.GetObject<Cart>("Cart");
 
@@ -59,9 +58,18 @@
 			<div class="col-lg-3 col-md-6 col-6">
 				<div class="d-flex justify-content-end">
 					<div class="header-action">
-						<button type="button" title="Search" id="header-search" class="d-flex">
+						<button type="button" title="Search" id="header-search-btn" class="d-flex">
 							<i class="pe-7s-search"></i>
 						</button>
+						<div class="header-search">
+							<form asp-action="Index" asp-controller="Products" method="get">
+								<input placeholder="Search products..." type="text" name="search" id="search" value="@ViewBag.ProductSearch" />
+								<button type="submit">
+									<i class="pe-7s-search"></i>
+								</button>
+							</form>
+						</div>
+					
 					</div>
 					<div class="header-action">
 						<a asp-action="Index" asp-controller="Account" title="Account" class="d-flex">

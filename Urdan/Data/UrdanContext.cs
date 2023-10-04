@@ -17,6 +17,7 @@ namespace Urdan.Data
 		public DbSet<User> Users { get; set; }
 		public DbSet<Order> Orders { get; set; }
 		public DbSet<OrderItem> OrderItems { get; set; }
+		public DbSet<ShippingAddress> ShippingAddresses { get; set; }
 
 	}
 }

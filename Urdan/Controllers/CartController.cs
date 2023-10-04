@@ -22,18 +22,21 @@ namespace Urdan.Controllers
 		}
 
 		[HttpGet("/Cart/AddToCart/{productId}")]
-		public async Task<IActionResult> AddToCart(int productId, string? color, int quantity = 1)
+		public async Task<IActionResult> AddToCart(int productId, string? color, string? quantityString)
 		{
+			int quantity = !String.IsNullOrEmpty(quantityString) ? Int32.Parse(quantityString) : 1;
 			var product = await _productService.FirstOrDefaultAsync(p => p.Id == productId);
 			if (product == null)
 			{
 				return NotFound();
 			}
+
+
 			Cart cart = HttpContext.Session.GetObject<Cart>("Cart") ?? new Cart();
-			int cartIndex = cart.CartItems.FindIndex(c => c.ProductId == productId);
+			int cartIndex = cart.CartItems.FindIndex(c => c.ProductId == productId && c.Color == color);
 			if (cartIndex == -1)
 			{
-				cart.CartItems.Add(new CartItem { ProductId = productId, ProductName = product.Name, Image = product.Images.First().Url, Color = color ?? product.Colors.First().Name, Price = product.Price, Quantity = 1 });
+				cart.CartItems.Add(new CartItem { ProductId = productId, ProductName = product.Name, Image = product.Images.First().Url, Color = color ?? product.Colors.First().Name, Price = product.PriceTotal, Quantity = quantity });
 			}
 			else
 			{
@@ -45,7 +48,50 @@ namespace Urdan.Controllers
 
 			HttpContext.Session.SetObject("Cart", cart);
 
-			return RedirectToAction("Index", "Cart");
+			return RedirectToAction(nameof(Index));
+		}
+
+
+		public IActionResult UpdateCart(Guid id, string? quantityString)
+		{
+			Cart? cart = HttpContext.Session.GetObject<Cart>("Cart");
+			if (cart != null && !String.IsNullOrEmpty(quantityString))
+			{
+				int quantity = Int32.Parse(quantityString);
+				int cartIndex = cart.CartItems.FindIndex(c => c.Id == id);
+				if (cartIndex != -1)
+				{
+					cart.Count -= cart.CartItems[cartIndex].Quantity;
+					cart.PriceTotal -= cart.CartItems[cartIndex].SubTotal;
+					cart.CartItems[cartIndex].Quantity = quantity;
+					cart.Count += quantity;
+					cart.PriceTotal += cart.CartItems[cartIndex].SubTotal;
+					HttpContext.Session.SetObject("Cart", cart);
+				}
+
+
+			}
+			return RedirectToAction(nameof(Index));
+		}
+
+		// GET: /Cart/DeleteCart/[id]
+		public IActionResult DeleteCart(Guid id)
+		{
+			Cart? cart = HttpContext.Session.GetObject<Cart>("Cart");
+			if (cart != null)
+			{
+				var cartItem = cart.CartItems.FirstOrDefault(c => c.Id == id);
+				if (cartItem != null)
+				{
+					cart.Count -= cartItem.Quantity;
+					cart.PriceTotal -= cartItem.SubTotal;
+					cart.CartItems.Remove(cartItem);
+					HttpContext.Session.SetObject("Cart", cart);
+				}
+				return RedirectToAction(nameof(Index));
+			}
+
+			return View(nameof(Index));
 		}
 	}
 }

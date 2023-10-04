@@ -1,7 +1,7 @@
 ﻿///<reference path="../lib/jquery/dist/jquery.min.js" />
 ///<reference path="../lib/swiper/package/swiper-bundle.min.js" />
 ///<reference path="../lib/aos-master/dist/aos.js" />
-///<reference path="../lib/easyzoom/dist/easyzoom.js" />
+///<reference path="../lib/magnific-popup/magnific-popup.min.js" />
 
 
 const header = $(".header");
@@ -30,8 +30,9 @@ scrollUp.on("click", function () {
 })
 
 // Toggle search button
-$("#header-search").on("click", function () {
-    $(this).children().toggleClass("pe-7s-search pe-7s-close")
+$("#header-search-btn").on("click", function () {
+    $(this).children().toggleClass("pe-7s-search pe-7s-close");
+    $(".header-search").toggleClass("active");
 })
 
 
@@ -69,8 +70,9 @@ const productSlider = new Swiper(".product-slider", {
     }
 })
 
-// Product details
-const productDetails = new Swiper(".product-img-list", {
+
+// Product img list
+const productImgList = new Swiper(".product-img-list", {
     spaceBetween: 20,
     navigation: {
         nextEl: '.product-details-next',
@@ -78,6 +80,16 @@ const productDetails = new Swiper(".product-img-list", {
     },
     slidesPerView: 4,
 })
+
+// Product img active
+const productImgActive = new Swiper(".product-img-active", {
+    slidesPerView: 1,
+    loop: true,
+    thumbs: {
+        swiper: productImgList
+    }
+});
+
 
 // Scroll animation
 AOS.init({
@@ -110,25 +122,31 @@ if (!amount) {
 }
 
 // Toggle active product color
-$(".product-color button").each(function () {
-    $(this).on("click", function () {
-        $(".product-color button").removeClass("active");
-        $(this).addClass("active");
-    })
+$(".product-color button").on("click", function () {
+    $(".product-color button").removeClass("active");
+    $(this).addClass("active");
+});
+
+// Toggle active product desc
+$(".description-review button").on("click", function () {
+    const text = $(this).text().trim();
+    const desc = $(".description-review-content .description");
+    const review = $(".description-review-content .review");
+    if (text === "Description") {
+        desc.addClass("active");
+        review.removeClass("active");
+    } else {
+        review.addClass("active");
+        desc.removeClass("active");
+    }
+    $(".description-review button").removeClass("active");
+    $(this).addClass("active");
 })
 
 // Easyzoom
 const $easyzoom = $(".easyzoom").easyZoom();
 const api = $easyzoom.data("easyZoom");
 
-// Toggle active product image
-$(".product-img-list button").each(function () {
-    $(this).on("click", function () {
-        const url = $(this).children().attr("src");
-        $(".product-img-active").attr("src", url);
-        api.swap($(this).children().data('standard'), url);
-    })
-});
 
 // Product quantity
 $(".product-quantity button").on("click", function () {
@@ -137,17 +155,71 @@ $(".product-quantity button").on("click", function () {
     const quantity = parseInt(input.val());
 
     if (text === "+" && !isNaN(quantity)) {
-        input.val(quantity + 1);
+        input.attr("value", quantity + 1);
     } else if (text === "-" && quantity > 1 && !isNaN(quantity)) {
-        input.val(quantity - 1);
+        input.attr("value", quantity - 1);
     } else {
-        input.val(1);
+        input.attr("value", 1);
+    }
+});
+
+// Product image pop up
+$(".img-popup").magnificPopup({
+    type: "image",
+    gallery: {
+        enabled: true
     }
 });
 
 
 
 
+// Active star
+$(".your-rating i").on("click", function () {
+    const star = $(this).index() + 1;
+    $(".your-rating i").removeClass("active");
+    $(this).addClass("active");
+    $("#Star").val(star);
+})
+
+
+
+// Add to cart
+function addToCart(productId) {
+    const color = $(".product-color button.active").attr("id");
+    const quantity = $(".product-quantity input").val();
+    console.log(quantity)
+    $.ajax({
+        type: "GET",
+        url: `/Cart/AddToCart/${productId}?color=${color}&quantityString=${quantity}`,
+        contentType: "application/json",
+        success: function () {
+            window.location.href = "/Cart";
+        },
+        error: function (error) {
+            console.log("Error while add to cart: " + error.responseText);
+        }
+    })
+}
+
+// Update cart
+$(".cart-quantity").on("change", function () {
+    const value = $(this).val();
+    const id = $(this).attr("id");
+    if (!isNaN(value) && id) {
+        $.ajax({
+            type: "GET",
+            url: `/Cart/UpdateCart/${id}?quantityString=${value}`,
+            contentType: "application/json",
+            success: function () {
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+})
 
 
 

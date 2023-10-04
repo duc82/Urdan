@@ -111,7 +111,53 @@
     position: relative;
 }
 
+.header .header-search {
+    position: absolute;
+    opacity: 0;
+    right: 0;
+    top: 50%;
+    visibility: hidden;
+    width: 340px;
+    transform: translateY(-50%);
+    margin-right: 10px;
+    transition: all .3s ease;
+}
 
+.header .header-search.active {
+    opacity: 1;
+    right: 100%;
+    visibility: visible;
+    z-index: 99;
+}
+
+.header .header-search form {
+    position: relative;
+}
+
+.header .header-search input {
+    background: white;
+    border: 1px solid rgb(226 220 220);
+    color: black;
+    line-height: 30px;
+    padding: 5px 60px 5px 20px;
+    width: 100%;
+    border-radius: 50px;
+    font-size: 14px;
+}
+
+.header .header-search button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    font-size: 18px;
+    border-left: 1px solid rgb(226 220 220);
+    padding: 0 16px;
+    color: black;
+    line-height: 45px;
+
+}
 
 .header .product-count {
     position: absolute;

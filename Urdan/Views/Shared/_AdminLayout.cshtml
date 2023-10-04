@@ -1,9 +1,20 @@
 ﻿@{
-	var currentAction = ViewContext.RouteData.Values["action"].ToString();
+	var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+	string ActiveClasses(string[] actions)
+	{
+		foreach (var action in actions)
+		{
+			if (action == currentAction)
+			{
+				return "active";
+			}
+		}
+		return "";
+	}
 }
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta name="viewport" content="width=device-width" />
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -26,31 +37,28 @@
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+			<div class="collapse navbar-collapse admin-menu" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
 					<li class="nav-item">
-						<a class="nav-link" aria-current="page" asp-action="Users">Users</a>
+						<a class="nav-link @ActiveClasses(new string[] {"Users","CreateUser","EditUser"})" aria-current="page" asp-action="Users">Users</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" asp-action="Products">Products</a>
+						<a class="nav-link @ActiveClasses(new string[] {"Products","CreateProduct","EditProduct"})" asp-action="Products">Products</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" asp-action="Brands">Brands</a>
+						<a class="nav-link @ActiveClasses(new string[] {"Brands","CreateBrand","EditBrand"})" asp-action="Brands">Brands</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" asp-action="Images">Images</a>
+						<a class="nav-link @ActiveClasses(new string[] {"Images","CreateImage","EditImage"})" asp-action="Images">Images</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" asp-action="Colors">Colors</a>
+						<a class="nav-link @ActiveClasses(new string[] {"Colors","CreateColor","EditColor"})" asp-action="Colors">Colors</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" asp-action="Categories">Categories</a>
+						<a class="nav-link @ActiveClasses(new string[] {"Addresses","CreateAddress","EditAddress"})" asp-action="Addresses">Addresses</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" asp-action="Addresses">Addresses</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" asp-action="Orders">Orders</a>
+						<a class="nav-link @ActiveClasses(new string[] {"Orders","CreateOrder","EditOrder"})" asp-action="Orders">Orders</a>
 					</li>
 				</ul>
 			</div>
@@ -72,15 +80,6 @@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/admin/index.js"></script>
-	<script type="text/javascript">
-		const currentAction = "@currentAction";
-		$(".nav-link").each(function () {
-			const itemText = $(this).text().trim();
-			if (itemText === currentAction) {
-				$(this).addClass("active");
-			}
-		})
-	</script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -16,14 +16,10 @@ namespace Urdan.Models
 		public int Height { get; set; }
 		public string Material { get; set; }
 		public string Description { get; set; }
-
-
 		[NotMapped]
 		public List<SelectListItem> Brands { get; set; } = new List<SelectListItem>();
 		[NotMapped]
 		public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
-
-
 		[Precision(18, 2)]
 		[DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
 		public decimal Price { get; set; }
@@ -45,7 +41,6 @@ namespace Urdan.Models
 				}
 			}
 		}
-
 		public decimal AvgRating
 		{
 			get
@@ -65,7 +60,6 @@ namespace Urdan.Models
 				}
 			}
 		}
-
 		public DateTime CreatedAt { get; set; } = DateTime.Now;
 		public virtual ICollection<Color>? Colors { get; set; }
 		public virtual Category? Category { get; set; }

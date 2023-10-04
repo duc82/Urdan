@@ -16,6 +16,7 @@
 							Product
 						</th>
 						<th>@Html.DisplayNameFor(model => model.CartItems.First().Price)</th>
+						<th>@Html.DisplayNameFor(model => model.CartItems.First().Color)</th>
 						<th>@Html.DisplayNameFor(model => model.CartItems.First().Quantity)</th>
 						<th>Subtotal</th>
 						<th></th>
@@ -39,15 +40,18 @@
 									$@cartItem.Price
 								</td>
 								<td>
-									@cartItem.Quantity
+									@cartItem.Color
+								</td>
+								<td>
+									<input type="number" value="@cartItem.Quantity" id="@cartItem.Id" class="form-control w-auto cart-quantity" min="1" max="999" maxlength="3" />
 								</td>
 								<td>
 									$@cartItem.SubTotal
 								</td>
 								<td>
-									<button type="button">
+									<a asp-action="DeleteCart" asp-route-id="@cartItem.Id" type="button">
 										<i class="ti-trash"></i>
-									</button>
+									</a>
 								</td>
 							</tr>
 						}
@@ -55,13 +59,15 @@
 
 				</tbody>
 			</table>
-			<div class="cart-update">
-				<a asp-action="Products" asp-controller="Products" class="btn-hover">Continue Shopping</a>
-				<div>
-					<a asp-action="UpdateCart" asp-route-cart="@Model" class="btn-hover">Update Cart</a>
-					<a asp-action="ClearCart" class="btn-hover">Clear Cart</a>
-				</div>
+			<div class="cart-total">
+				<span>Total:</span>
+				<strong>$@(Model?.PriceTotal ?? 0)</strong>
 			</div>
+			<div class="cart-update">
+				<a asp-action="Index" asp-controller="Products" class="btn-hover">Continue Shopping</a>
+				<a asp-action="Index" asp-controller="Checkout" class="btn-checkout btn-hover">Process To Checkout</a>
+			</div>
+			
 		</div>
 	</div>
 </div>

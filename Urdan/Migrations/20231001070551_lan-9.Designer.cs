@@ -12,15 +12,15 @@ using Urdan.Data;
 namespace Urdan.Migrations
 {
     [DbContext(typeof(UrdanContext))]
-    [Migration("20230918090630_lan-3")]
-    partial class lan3
+    [Migration("20231001070551_lan-9")]
+    partial class lan9
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -42,6 +42,18 @@ namespace Urdan.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("District")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -145,11 +157,25 @@ namespace Urdan.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AddressId1")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DeliveryDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("Date");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ShippingFee")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -163,6 +189,13 @@ namespace Urdan.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
+
+                    b.HasIndex("AddressId1")
+                        .IsUnique()
+                        .HasFilter("[AddressId1] IS NOT NULL");
 
                     b.HasIndex("UserId");
 
@@ -354,11 +387,23 @@ namespace Urdan.Migrations
 
             modelBuilder.Entity("Urdan.Models.Order", b =>
                 {
+                    b.HasOne("Urdan.Models.Address", "Address")
+                        .WithOne()
+                        .HasForeignKey("Urdan.Models.Order", "AddressId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Urdan.Models.Address", null)
+                        .WithOne("Order")
+                        .HasForeignKey("Urdan.Models.Order", "AddressId1");
+
                     b.HasOne("Urdan.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Address");
 
                     b.Navigation("User");
                 });
@@ -418,6 +463,11 @@ namespace Urdan.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Urdan.Models.Address", b =>
+                {
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Urdan.Models.Brand", b =>

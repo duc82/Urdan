@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 		<Using Include="BCrypt.Net.BCrypt" Alias="BC" />
+		<Using Include="System.Security.Claims" />
 	</ItemGroup>
 
 	<ItemGroup>

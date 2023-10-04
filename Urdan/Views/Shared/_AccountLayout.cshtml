@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@{
+	var actionName = Context.Request.RouteValues["action"]?.ToString();
+	string ActiveClasses(string[] names)
+	{
+		foreach (var name in names)
+		{
+			if (actionName == name)
+			{
+				return "active";
+			}
+		}
+		return "";
+	}
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -22,16 +37,16 @@
 				<div class="col-lg-3 col-md-4">
 					<ul class="account-menu nav flex-column">
 						<li>
-							<a asp-action="Index" class="active">Dashboard</a>
+							<a asp-action="Index" class="@ActiveClasses(new string[] {"Index"})">Dashboard</a>
 						</li>
 						<li>
-							<a asp-action="Orders">Orders</a>
+							<a asp-action="Orders" class="@ActiveClasses(new string[] {"Orders"})">Orders</a>
 						</li>
 						<li>
-							<a asp-action="Addresses">Addresses</a>
+							<a asp-action="Addresses" class="@ActiveClasses(new string[] {"Addresses","AddAddress","EditAddress"})">Addresses</a>
 						</li>
 						<li>
-							<a asp-action="Details">Account Details</a>
+							<a asp-action="Details" class="@ActiveClasses(new string[] {"Details"})">Account Details</a>
 						</li>
 						<li>
 							<a asp-action="Logout">Logout</a>
@@ -56,6 +71,8 @@
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/lib/swiper/package/swiper-bundle.min.js"></script>
 	<script src="~/lib/aos-master/dist/aos.js"></script>
+	<script src="~/lib/easyzoom/dist/easyzoom.js"></script>
+	<script src="~/lib/magnific-popup/magnific-popup.min.js"></script>
 	<script src="~/js/main-bundle.min.js"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
