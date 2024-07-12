@@ -11,7 +11,7 @@ namespace Urdan.Controllers
 	{
 		private readonly UrdanContext _context;
 		private readonly IProductService _productService;
-		private readonly int _pageSize = 9;
+		private readonly int _pageSize = 3;
 
 		public ProductsController(UrdanContext context, IProductService productService)
 		{

@@ -17,21 +17,21 @@
 						<label class="form-label">
 							First Name <abbr title="required">*</abbr>
 						</label>
-						<input class="form-control" asp-for="ShippingAddress.FirstName" value="@ViewBag.Address.FirstName"  />
+						<input class="form-control" asp-for="ShippingAddress.FirstName" value="@ViewBag.Address?.FirstName"  />
 						<span asp-validation-for="ShippingAddress.FirstName" class="form-text text-danger"></span>
 					</div>
 					<div class="col-lg-6 col-md-6 mb-4">
 						<label class="form-label">
 							Last Name <abbr title="required">*</abbr>
 						</label>
-						<input class="form-control" asp-for="ShippingAddress.LastName" value="@ViewBag.Address.LastName" />
+						<input class="form-control" asp-for="ShippingAddress.LastName" value="@ViewBag.Address?.LastName" />
 						<span asp-validation-for="ShippingAddress.LastName" class="form-text text-danger"></span>
 					</div>
 					<div class="col-lg-12 mb-4">
 						<label class="form-label">
 							Phone <abbr title="required">*</abbr>
 						</label>
-						<input class="form-control" asp-for="ShippingAddress.Phone" value="@ViewBag.Address.Phone" />
+						<input class="form-control" asp-for="ShippingAddress.Phone" value="@ViewBag.Address?.Phone" />
 						<span asp-validation-for="ShippingAddress.Phone" class="form-text text-danger"></span>
 					</div>
 					<div class="col-lg-12 mb-4">
@@ -46,7 +46,7 @@
 						<label  class="form-label">
 						Ward <abbr title="required">*</abbr>
 						</label>
-						<input class="form-control" asp-for="ShippingAddress.Ward" value="@ViewBag.Address.Ward" />
+						<input class="form-control" asp-for="ShippingAddress.Ward" value="@ViewBag.Address?.Ward" />
 						<span asp-validation-for="ShippingAddress.Ward" class="form-text text-danger"></span>
 					</div>
 					
@@ -54,7 +54,7 @@
 						<label  class="form-label">
 							District <abbr title="required">*</abbr>
 						</label>
-						<input class="form-control" asp-for="ShippingAddress.District" value="@ViewBag.Address.District" />
+						<input class="form-control" asp-for="ShippingAddress.District" value="@ViewBag.Address?.District" />
 						<span asp-validation-for="ShippingAddress.District" class="form-text text-danger"></span>
 					</div>
 					
@@ -62,7 +62,7 @@
 						<label  class="form-label">
 							City <abbr title="required">*</abbr>
 						</label>
-						<input class="form-control" asp-for="ShippingAddress.City" value="@ViewBag.Address.City" />
+						<input class="form-control" asp-for="ShippingAddress.City" value="@ViewBag.Address?.City" />
 						<span asp-validation-for="ShippingAddress.City" class="form-text text-danger"></span>
 					</div>
 					
@@ -70,7 +70,7 @@
 						<label  class="form-label">
 							Detail <abbr title="required">*</abbr>
 						</label>
-						<input class="form-control" asp-for="ShippingAddress.Detail" value="@ViewBag.Address.Detail" />
+						<input class="form-control" asp-for="ShippingAddress.Detail" value="@ViewBag.Address?.Detail" />
 						<span asp-validation-for="ShippingAddress.Detail" class="form-text text-danger"></span>
 					</div>
 					

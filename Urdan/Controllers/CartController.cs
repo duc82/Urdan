@@ -31,12 +31,14 @@ namespace Urdan.Controllers
 				return NotFound();
 			}
 
+			color = color ?? product.Colors.First().Name;
+
 
 			Cart cart = HttpContext.Session.GetObject<Cart>("Cart") ?? new Cart();
 			int cartIndex = cart.CartItems.FindIndex(c => c.ProductId == productId && c.Color == color);
 			if (cartIndex == -1)
 			{
-				cart.CartItems.Add(new CartItem { ProductId = productId, ProductName = product.Name, Image = product.Images.First().Url, Color = color ?? product.Colors.First().Name, Price = product.PriceTotal, Quantity = quantity });
+				cart.CartItems.Add(new CartItem { ProductId = productId, ProductName = product.Name, Image = product.Images.First().Url, Color = color, Price = product.PriceTotal, Quantity = quantity });
 			}
 			else
 			{

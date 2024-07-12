@@ -29,10 +29,10 @@ namespace Urdan.Controllers
 			var userId = User.Claims.FirstOrDefault(claim => claim.Type == "Id")?.Value;
 
 			Order order = new Order();
-			Address? addresse = await _context.Addresses.FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+			Address? address = await _context.Addresses.FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
 
 
-			ViewBag.Address = addresse;
+			ViewBag.Address = address;
 			ViewBag.Cart = cart;
 			return View(order);
 		}
